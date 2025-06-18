@@ -1,5 +1,5 @@
 streamlit
-st-audiorec
+streamlit-audiorec
 requests
 pygame
 soundfile
