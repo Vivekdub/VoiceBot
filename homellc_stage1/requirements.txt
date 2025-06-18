@@ -9,3 +9,4 @@ torch
 murf
 python-vlc
 sentencepiece==0.1.99 --prefer-binary
+dotenv
