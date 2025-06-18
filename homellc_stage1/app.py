@@ -10,10 +10,15 @@ import soundfile as sf
 import numpy as np
 from transformers import pipeline
 import vlc
+from dotenv import load_dotenv
+load_dotenv()
 # -------------------- API Keys --------------------
-OPENROUTER_API_KEY = st.secrets["api"]["OPENROUTER_API_KEY"]
-HF_API_KEY = st.secrets["api"]["HF_API_KEY"]
-MURF_API_KEY = st.secrets["api"]["MURF_API_KEY"]
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+HF_API_KEY = os.getenv("HF_API_KEY")
+MURF_API_KEY = os.getenv("MURF_API_KEY")
+if not OPENROUTER_API_KEY or not HF_API_KEY or not MURF_API_KEY:
+    st.error("❌ One or more API keys are missing. Check your environment variables in Render.")
+    st.stop()
 # -------------------- Streamlit Setup --------------------
 st.set_page_config(page_title="🎙️ Voice GPT Assistant", layout="centered")
 st.markdown("<h1 style='text-align: center;'>🎙️ Talk to GPT-4o</h1>", unsafe_allow_html=True)
