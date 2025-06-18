@@ -6,6 +6,6 @@ soundfile
 numpy
 transformers
 torch
-murf-sdk
+murf
 python-vlc
 sentencepiece==0.1.99
