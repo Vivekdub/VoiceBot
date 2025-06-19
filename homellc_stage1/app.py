@@ -76,7 +76,7 @@ def play_audio_vlc(mp3_path):
         st.error(f"❌ Audio playback failed: {e}")
 
 # -------------------- Streamlit UI --------------------
-st.markdown("### Click the mic and speak")
+st.markdown("### Click the Start recording to record and Stop to submit the audio")
 audio_bytes = st_audiorec()
 
 if audio_bytes:
@@ -86,7 +86,7 @@ if audio_bytes:
         wav_path = os.path.join(os.getcwd(), "recorded_audio.wav")
         with open(wav_path, "wb") as f:
             f.write(audio_bytes)
-        st.text(f"🔊 Saved: {wav_path}")
+        #st.text(f"🔊 Saved: {wav_path}")
 
         # Step 2: Convert to FLAC
         try:
@@ -95,7 +95,7 @@ if audio_bytes:
                 audio_data = np.mean(audio_data, axis=1)  # convert to mono
             flac_path = os.path.join(os.getcwd(), "converted.flac")
             sf.write(flac_path, audio_data, sample_rate, format="FLAC")
-            st.text(f"🎧 Saved FLAC: {flac_path}")
+            #st.text(f"🎧 Saved FLAC: {flac_path}")
         except Exception as e:
             st.error(f"❌ Error converting to FLAC: {e}")
             st.stop()
@@ -137,6 +137,7 @@ if audio_bytes:
     # Step 5: TTS + Playback
     tts_file = generate_speech(reply)
     if tts_file and os.path.exists(tts_file):
-        play_audio_vlc(tts_file)
+        with open(tts_file, "rb") as f:
+            st.audio(f.read(), format="audio/mp3")
     else:
         st.error("❌ TTS failed or file not found.")
